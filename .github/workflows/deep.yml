@@ -1,0 +1,41 @@
+# Deep lane: dev -> main. Same integrity checks plus an inventory summary.
+#
+# A KiCad library has no build and no test suite. What it can do is ship a
+# corrupt footprint or a symbol library missing its description file, and the
+# consumer only finds out when KiCad fails to load it. These gates catch the
+# three ways this library goes wrong:
+#
+#   1. an unbalanced .kicad_mod s-expression   -> footprint will not load
+#   2. a .lib without its matching .dcm        -> symbol descriptions vanish
+#   3. committed editor backups (.bak/.bck)    -> three were already in tree
+#
+# All three were negative-tested before wiring.
+name: deep
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: deep-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  library:
+    name: library integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Footprints parse
+        run: python3 tools/check_library.py --footprints
+
+      - name: Symbol libraries paired with .dcm
+        run: python3 tools/check_library.py --symbols
+
+      - name: No editor backup files committed
+        run: python3 tools/check_library.py --no-backups
+
+      - name: Library inventory
+        run: python3 tools/check_library.py --inventory

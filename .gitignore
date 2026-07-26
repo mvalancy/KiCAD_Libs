@@ -1,0 +1,13 @@
+# KiCad writes these beside the file it is editing. They are editor state,
+# not library content — three of them had been committed.
+*.bak
+*.bck
+*~
+*-bak
+*.kicad_pcb-bak
+*.sch-bak
+
+# KiCad project scratch
+fp-info-cache
+*-cache.lib
+*.lck
