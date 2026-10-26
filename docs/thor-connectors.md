@@ -19,3 +19,11 @@ The standard KiCad3D model is retained as an approximate review model, not manuf
 ## Checks and limits
 
 Run `python tools/check_library.py --footprints`, `--symbols`, and `--no-backups`. Native KiCad10 loading and project ERC/DRC/parity are exercised in the originating hardware project. Balanced s-expressions do not prove correct dimensions or mating. No proprietary vendor PDFs are redistributed.
+
+## Wieson AC2800-0011-022-H0 — exact reference-layout lands
+
+The NVIDIA P4071A02 native ODB++ package, placed copper and Allegro ASCII extraction were cross-checked for all26pads. The top-side normalized footprint has0.74×3.00mm pads, odd-rowY+1.93 and even-rowY−1.93,1.27mm pitch,0.05mm mask expansion and1:1 paste. No pin drills were found. [Derived measurement authority](j47-footprint-measurements.json) records source archive hashes, member names, line references and normalized polygons.
+
+The body outline is associated with the source's explicit Wieson MPN annotation. A separately dashed CAP outline is included but is not represented as a polarizing key or shroud. The courtyard encloses the source DFA bounds plus0.5mm. The carrier's original bottom-side/180-degree placement is not copied into the new top-side footprint.
+
+This is original footprint code derived from dimensional facts in the reference layout, not a redistribution of vendor CAD/PDF files. The footprint is MIT in the originating project and also offered under this library's CC BY-SA4.0 license. Current manufacturer drawing, order availability, exact height and physical mating remain unverified.
